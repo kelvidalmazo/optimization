@@ -1,5 +1,7 @@
 ﻿using BenchmarkDotNet.Columns;
 using BenchmarkDotNet.Configs;
+using BenchmarkDotNet.Diagnosers;
+using BenchmarkDotNet.Diagnostics.Windows;
 using BenchmarkDotNet.Engines;
 using BenchmarkDotNet.Environments;
 using BenchmarkDotNet.Jobs;
@@ -12,7 +14,8 @@ public class JobRunner : ManualConfig
     public JobRunner()
     {
         HideColumns(StatisticColumn.Error, StatisticColumn.StdDev);
-        AddColumn(StatisticColumn.Max, StatisticColumn.Min);
+        AddColumn(StatisticColumn.Max, StatisticColumn.Min, RankColumn.Arabic);
+        AddDiagnoser(MemoryDiagnoser.Default, new InliningDiagnoser(), new EtwProfiler());
         AddJob(CreateJob(Platform.X64, CoreRuntime.Core60));
     }
 

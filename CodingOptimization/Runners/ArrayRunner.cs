@@ -6,13 +6,13 @@ namespace CodingOptimization.Runners;
 [Config(typeof(JobRunner))]
 public class ArrayRunner
 {
-    [Benchmark()]
+    [Benchmark(Baseline = true)]
     public void WithDefault()
     {
         var array = new int[Parameters.HundredMillion];
     }
 
-    [Benchmark()]
+    [Benchmark]
     public void WithPoolDefined()
     {
         var pool = ArrayPool<int>.Shared;
